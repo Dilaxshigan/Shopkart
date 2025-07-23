@@ -1,0 +1,33 @@
+  {% extends 'layouts/main.html' %}
+  {% block content %}
+
+  {% include 'layouts/includes/slider.html' %}
+    <div class="container" style="margin-top:70px;" >
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-3"> Latest Offers</h4>
+        <hr style="border-color:#b8bfc2;">
+      </div>
+      {% for item in products %}
+      <div class="col-md-4 col-lg-3">
+        <div class="card my-3" style="height: 350px; overflow: hidden;">
+          <div style="height: 200px; overflow: hidden;">
+            <img src="{{item.product_image.url}}" class="card-img-top img-fluid h-100" alt="Categories" style="object-fit: cover; width: 100%;">
+          </div>
+          <a href="{% url 'product_details' item.category.name item.name %}">
+          <div class="card-body">
+            <h5 class="card-title text-dark fw-bold">{{ item.name }}</h5>
+            <p class="card-text text-dark">{{ item.description|truncatechars:60 }}</p>
+            <p class="card-text">
+              <span class="float-start btn btn-danger mb-2"><s>$ {{ item.original_price | stringformat:'d'}}</s></span>
+              <span class="float-end btn btn-success mb-2">$ {{ item.selling_price | stringformat:'d' }}</span>
+            </p>
+          </div>
+        </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% endblock content %}
